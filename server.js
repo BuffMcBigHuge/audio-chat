@@ -29,7 +29,39 @@ const port = process.env.PORT || 3000;
 console.log('🔧 Setting up middleware...');
 app.use(cors());
 app.use(express.json());
-app.use(helmet());
+
+// Configure Helmet with custom CSP for audio functionality
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      connectSrc: [
+        "'self'", 
+        "http://*.replit.dev", 
+        "https://*.replit.dev", 
+        "http://*.spock.replit.dev", 
+        "https://*.spock.replit.dev",
+        "http://localhost:*",
+        "https://localhost:*"
+      ],
+      mediaSrc: [
+        "'self'", 
+        "blob:",
+        "http://*.replit.dev", 
+        "https://*.replit.dev", 
+        "http://*.spock.replit.dev", 
+        "https://*.spock.replit.dev",
+        "http://localhost:*",
+        "https://localhost:*"
+      ],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:", "blob:"],
+      fontSrc: ["'self'", "data:"],
+      workerSrc: ["'self'", "blob:"]
+    }
+  }
+}));
 
 // Serve static files from frontend build in production
 if (process.env.NODE_ENV === 'production') {

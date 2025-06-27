@@ -28,9 +28,16 @@ async function saveAudioFile(audioData, audioMimeType, uid, chatId, req) {
     const audioBuffer = Buffer.from(audioData, 'base64');
     fs.writeFileSync(filePath, audioBuffer);
     
-    // Generate full URL
-    const protocol = req.protocol || 'http';
-    const host = req.get('host') || `localhost:${port}`;
+    // Generate full URL with proper protocol detection for cloud environments
+    // Check for forwarded protocol headers (common in cloud environments)
+    const forwardedProto = req.get('x-forwarded-proto') || req.get('x-forwarded-protocol');
+    const isSecure = forwardedProto === 'https' || req.secure || req.connection.encrypted;
+    
+    // Default to HTTPS for production environments (.replit.dev domains)
+    const host = req.get('host') || `localhost:${process.env.PORT || 3000}`;
+    const isReplitDomain = host.includes('.replit.dev');
+    const protocol = isSecure || isReplitDomain ? 'https' : 'http';
+    
     const audioUrl = `${protocol}://${host}/api/audio/${uid}/${chatId}/${filename}`;
     
     console.log('Audio file saved:', filePath);
