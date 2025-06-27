@@ -17,13 +17,12 @@ run = ["sh", "-c", "npm run deploy"]
 deploymentTarget = "cloudrun"
 
 [[ports]]
-localPort = 3000
+localPort = 4173
 externalPort = 80
-exposeLocalhost = true
 
 [[ports]]
-localPort = 3001
-externalPort = 3001
+localPort = 3000
+externalPort = 3000
 
 [[ports]]
 localPort = 4173
