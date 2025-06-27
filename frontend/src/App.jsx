@@ -479,7 +479,8 @@ function App() {
                   } shadow-lg transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:hover:scale-100`}
                 >
                   {isProcessing ? (
-                    <div className="w-6 h-6 border-2 border-white border-t-transparent animate-spin" />
+                    <div></div>
+                    /* <div className="w-6 h-6 border-2 border-white border-t-transparent animate-spin" /> */
                   ) : isRecording ? (
                     <MicOff className="w-6 h-6" />
                   ) : (
