@@ -1,0 +1,37 @@
+run = "bash start-replit.sh"
+
+modules = ["nodejs-20", "web"]
+
+hidden = [".config", "package-lock.json", "frontend/package-lock.json"]
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix"]
+
+[nix]
+channel = "stable-24_11"
+
+[unitTest]
+language = "nodejs"
+
+[deployment]
+run = ["sh", "-c", "npm install && cd frontend && npm install && npm run build && cd .. && npm run dev"]
+publicDir = "frontend/dist"
+deploymentTarget = "cloudrun"
+
+[[ports]]
+localPort = 3000
+externalPort = 80
+exposeLocalhost = true
+
+[[ports]]
+localPort = 4173
+externalPort = 3000
+exposeLocalhost = true
+
+[languages]
+
+[languages.javascript]
+pattern = "**/{*.js,*.jsx,*.ts,*.tsx,*.json}"
+
+[languages.javascript.languageServer]
+start = "typescript-language-server --stdio" 
