@@ -10,4 +10,10 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  preview: {
+    allowedHosts: ['.replit.dev', 'localhost',]
+  },
+  server: {
+    host: "0.0.0.0"
+  }
 })

@@ -24,12 +24,19 @@ function cleanResponseText(text) {
 
 console.log('🚀 Initializing Express app...');
 const app = express();
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 
 console.log('🔧 Setting up middleware...');
 app.use(cors());
 app.use(express.json());
 app.use(helmet());
+
+// Serve static files from frontend build in production
+if (process.env.NODE_ENV === 'production') {
+  console.log('📁 Serving static files from frontend/dist...');
+  app.use(express.static(path.join(__dirname, 'frontend/dist')));
+}
+
 console.log('✅ Middleware configured');
 
 // Ensure audio_files directory exists
@@ -357,6 +364,13 @@ app.post('/api/chat/audio', async (req, res) => {
     res.status(500).json({ error: 'An error occurred processing your request', details: error.message });
   }
 });
+
+// Catch-all handler: send back React's index.html file for any non-API routes in production
+if (process.env.NODE_ENV === 'production') {
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'frontend/dist/index.html'));
+  });
+}
 
 // Add error handling for uncaught exceptions and unhandled rejections
 process.on('uncaughtException', (error) => {
