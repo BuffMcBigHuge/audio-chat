@@ -14,19 +14,17 @@ channel = "stable-24_11"
 language = "nodejs"
 
 [deployment]
-run = ["sh", "-c", "npm install && cd frontend && npm install && npm run build && cd .. && npm run dev"]
+run = ["sh", "-c", "npm install && cd frontend && npm install && npm run build && cd .. && npm run deploy"]
 publicDir = "frontend/dist"
 deploymentTarget = "cloudrun"
 
 [[ports]]
 localPort = 3000
-externalPort = 80
-exposeLocalhost = true
+externalPort = 3000
 
 [[ports]]
 localPort = 4173
-externalPort = 3000
-exposeLocalhost = true
+externalPort = 80
 
 [languages]
 
