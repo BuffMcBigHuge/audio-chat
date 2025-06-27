@@ -1,5 +1,6 @@
-run = "npm run dev"
-modules = ["nodejs-20", "web", "bash"]
+run = "bash start-replit.sh"
+
+modules = ["nodejs-20", "web"]
 
 hidden = [".config", "package-lock.json", "frontend/package-lock.json"]
 
@@ -7,26 +8,25 @@ hidden = [".config", "package-lock.json", "frontend/package-lock.json"]
 requiredFiles = [".replit", "replit.nix"]
 
 [nix]
-channel = "stable-24_05"
+channel = "stable-24_11"
 
 [unitTest]
 language = "nodejs"
 
 [deployment]
-run = ["sh", "-c", "npm run dev"]
+run = ["sh", "-c", "npm install && cd frontend && npm install && npm run build && cd .. && npm run dev"]
+publicDir = "frontend/dist"
 deploymentTarget = "cloudrun"
 
 [[ports]]
-localPort = 4173
-externalPort = 80
-
-[[ports]]
 localPort = 3000
-externalPort = 3000
+externalPort = 80
+exposeLocalhost = true
 
 [[ports]]
 localPort = 4173
-externalPort = 4173
+externalPort = 3000
+exposeLocalhost = true
 
 [languages]
 
@@ -35,15 +35,3 @@ pattern = "**/{*.js,*.jsx,*.ts,*.tsx,*.json}"
 
 [languages.javascript.languageServer]
 start = "typescript-language-server --stdio" 
-
-[workflows]
-runButton = "Start Application"
-
-[[workflows.workflow]]
-name = "Start Application"
-author = 30892708
-mode = "sequential"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "bash start-replit.sh"
