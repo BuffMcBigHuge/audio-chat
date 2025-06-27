@@ -1,4 +1,4 @@
-run = "bash start-replit.sh"
+run = "npm run deploy"
 
 modules = ["nodejs-20", "web"]
 
@@ -14,16 +14,11 @@ channel = "stable-24_11"
 language = "nodejs"
 
 [deployment]
-run = ["sh", "-c", "npm install && cd frontend && npm install && npm run build && cd .. && npm run deploy"]
-publicDir = "frontend/dist"
+run = ["sh", "-c", "npm install && npm run deploy"]
 deploymentTarget = "cloudrun"
 
 [[ports]]
 localPort = 3000
-externalPort = 3000
-
-[[ports]]
-localPort = 4173
 externalPort = 80
 
 [languages]

@@ -345,8 +345,8 @@ function App() {
         </header>
 
         {/* Chat Messages - Scrollable area */}
-        <div className="flex-1 flex flex-col min-h-0">
-          <ScrollArea ref={scrollAreaRef} className="flex-1 p-4">
+        <ScrollArea ref={scrollAreaRef} className="flex-1">
+          <div className="p-4">
             <div className="max-w-4xl mx-auto space-y-4">
               {messages.length === 0 ? (
                 <div className="text-center text-muted-foreground py-8">
@@ -379,7 +379,7 @@ function App() {
                     
                     <div className={`max-w-[75%] ${message.type === 'user' ? 'order-2' : ''}`}>
                       <div
-                        className={`px-4 py-3 ${
+                        className={`px-4 py-3 rounded-lg ${
                           message.type === 'user'
                             ? 'bg-blue-500 text-white ml-auto'
                             : 'bg-muted text-foreground'
@@ -427,8 +427,8 @@ function App() {
                 ))
               )}
             </div>
-          </ScrollArea>
-        </div>
+          </div>
+        </ScrollArea>
 
         {/* Fixed Footer - Input Controls */}
         <footer className="flex-shrink-0 border-t border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">

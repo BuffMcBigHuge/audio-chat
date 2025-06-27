@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getUserUID } from '../../utils/userUtils';
+import { API_BASE_URL } from '../../config/api';
 
 // Async thunk for sending audio message with UID and chat context
 export const sendAudioMessage = createAsyncThunk(
@@ -8,7 +9,7 @@ export const sendAudioMessage = createAsyncThunk(
     try {
       const uid = getUserUID();
       
-      const response = await fetch('http://localhost:3001/api/chat/audio', {
+      const response = await fetch(`${API_BASE_URL}/api/chat/audio`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,7 +53,7 @@ export const sendTextMessage = createAsyncThunk(
     try {
       const uid = getUserUID();
       
-      const response = await fetch('http://localhost:3001/api/chat/text', {
+      const response = await fetch(`${API_BASE_URL}/api/chat/text`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -96,7 +97,7 @@ export const fetchChatHistory = createAsyncThunk(
     try {
       const uid = getUserUID();
       
-      const response = await fetch(`http://localhost:3001/api/chats/${uid}`);
+      const response = await fetch(`${API_BASE_URL}/api/chats/${uid}`);
       
       if (response.ok) {
         const data = await response.json();
@@ -118,7 +119,7 @@ export const loadChat = createAsyncThunk(
     try {
       const uid = getUserUID();
       
-      const response = await fetch(`http://localhost:3001/api/chats/${uid}/${chatId}`);
+      const response = await fetch(`${API_BASE_URL}/api/chats/${uid}/${chatId}`);
       
       if (response.ok) {
         const data = await response.json();
@@ -140,7 +141,7 @@ export const deleteChat = createAsyncThunk(
     try {
       const uid = getUserUID();
       
-      const response = await fetch(`http://localhost:3001/api/chats/${uid}/${chatId}`, {
+      const response = await fetch(`${API_BASE_URL}/api/chats/${uid}/${chatId}`, {
         method: 'DELETE'
       });
       

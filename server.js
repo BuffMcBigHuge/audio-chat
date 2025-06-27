@@ -367,7 +367,7 @@ app.post('/api/chat/audio', async (req, res) => {
 
 // Catch-all handler: send back React's index.html file for any non-API routes in production
 if (process.env.NODE_ENV === 'production') {
-  app.get('*', (req, res) => {
+  app.get(/(.*)/, (req, res) => {
     res.sendFile(path.join(__dirname, 'frontend/dist/index.html'));
   });
 }
