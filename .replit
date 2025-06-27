@@ -1,6 +1,6 @@
 run = "npm run deploy"
 
-modules = ["nodejs-20", "web"]
+modules = ["nodejs-22", "web"]
 
 hidden = [".config", "package-lock.json", "frontend/package-lock.json"]
 
