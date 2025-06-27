@@ -1,4 +1,4 @@
-run = "bash start-replit.sh"
+run = "npm run dev"
 modules = ["nodejs-20", "web", "bash"]
 
 hidden = [".config", "package-lock.json", "frontend/package-lock.json"]
@@ -13,7 +13,7 @@ channel = "stable-24_05"
 language = "nodejs"
 
 [deployment]
-run = ["sh", "-c", "npm run deploy"]
+run = ["sh", "-c", "npm run dev"]
 deploymentTarget = "cloudrun"
 
 [[ports]]
